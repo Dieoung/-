@@ -1,32 +1,91 @@
-#include <iostream>;
-#include <math.h>;
+#include <iostream>
+
 using namespace std;
 
-double pointDistance(double x1, double y1, double x2, double y2) {
-	return sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
-}
+class Worker
+{
+private:
 
-double pointDistance(double x1, double y1, double z1, double x2, double y2, double z2) {
-	return sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2) + pow((z2 - z1), 2));
-}
+    string m_surname, m_post;
+    int m_year_admission, m_salary;
+
+public:
+    Worker(string surname, string post, int year_admission, int salary)
+    {
+      m_surname = surname;
+      m_post = post;
+      m_year_admission = year_admission;
+      m_salary = salary;
+    }
+
+    void show()
+    {
+        cout << "Фамилия и инициалы: " << m_surname << " Должность: " << m_post << " Год поступления на работу: " << m_year_admission << " Зарплата: " << m_salary << endl;
+    }
+
+    void experience(int year)
+    {
+        if (2021 - m_year_admission > year)
+            show();
+    }
+
+    void salary(int salary)
+    {
+        if (m_salary > salary)
+            show();
+    }
+
+    void post(string post)
+    {
+        if (post == m_post)
+            show();
+    }
 
 
-
-int main() {
-	setlocale(LC_ALL, "Russian");
-
-	cout << "Двумерное пространство: ";
-	double x = pointDistance(2.0,5.0,3.0, 1.0);
-	double y = pointDistance(-3.0,3.0,5.0, -1.0);
-	double z = pointDistance(1.0,7.0,2.0, -3.0);
-	cout << "Периметр треугольника равен: " << x + y + z << endl;
+};
 
 
-	cout << "Трёхмерное пространство: ";
-	x = pointDistance(3.0, 4.0, -2.0, -1.0, 4.0,1.0);
-	y = pointDistance(2.0, -6.0, 2.0, 3.0, 1.0, -2.0);
-	z = pointDistance(2.0, -2.0, 6.0, -4.0, 1.0, 5.0);
-	cout << "Периметр треугольника равен: " << x + y + z << endl;
+int main()
+{
+    setlocale(LC_ALL,"Rus");
+    const int total_workers = 5;
+    Worker workers[total_workers]
+    {
+        Worker("Греков А.Д.", "Worker", 2000, 35500),
+        Worker("Греков В.И.", "Administrator", 1990, 95500),
+        Worker("Орлова А.Г.", "Manager", 2000, 55500),
+        Worker("Степанова В.В.", "Worker", 2002, 25500),
+        Worker("Устинов Г.Е.", "Accountanter", 1995, 75500),
+    };
 
-	return 0;
+    cout << "а) Список работников, стаж работы которых на данном предприятии превышает заданное число лет: ";
+    int experience;
+    cin >> experience;
+
+    for (int i = 0; i < total_workers; ++i)
+    {
+        workers[i].experience(experience);
+    }
+
+    cout << "б) Список работников, зарплата которых больше заданной: ";
+    int salary;
+    cin >> salary;
+    cin.ignore(32767, '\n');
+
+    for (int i = 0; i < total_workers; ++i)
+    {
+        workers[i].salary(salary);
+    }
+
+    //в) список работников, занимающих заданную должность.
+    cout << "в) Список работников, занимающих заданную должность: ";
+    string post;
+    getline(cin, post);
+
+
+    for (int i = 0; i < total_workers; ++i)
+    {
+        workers[i].post(post);
+    }
+    return 0;
 }
