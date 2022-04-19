@@ -1,0 +1,13 @@
+.facebookButton {
+    margin-top: 10px;
+    width: 205px;
+    height: 30px;
+    border-radius: 30px;
+    color: wheat;
+    background-color: rgb(54, 54, 176);
+    cursor: pointer;
+}
+
+.facebookButton:hover {
+    box-shadow:0 0 5px #000;
+}
